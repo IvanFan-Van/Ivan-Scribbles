@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   hexo:
     specifier: ^6.3.0
@@ -32,8 +36,8 @@ dependencies:
     specifier: ^1.0.0
     version: 1.0.0
   hexo-theme-redefine:
-    specifier: ^2.5.0
-    version: 2.5.0
+    specifier: ^2.5.3
+    version: 2.5.3
 
 packages:
 
@@ -743,8 +747,8 @@ packages:
     resolution: {integrity: sha512-bWQJWMqQI78wWiJPQZq5pJBH20TM442ShCaHGRetuEgMraxH0OKxB3NTupJzNEkzEk8DV2yrdizkXdKN6i501A==}
     dev: false
 
-  /hexo-theme-redefine@2.5.0:
-    resolution: {integrity: sha512-SnIeSGT2O+e3CUaiGzUmMDO4wTKv2iTRaMGA56Jc6NFy09zzLzVo6lbPiNK8a3jHJOsa0X1db/DYZSz/bErWTA==}
+  /hexo-theme-redefine@2.5.3:
+    resolution: {integrity: sha512-slgQKCxStOaOv4bdXl6JD+ziKvgbuNcJV2n+B+x7LfnrA5iWXnKt52tmRGEiX1FqIyazwQc5HlpSqi4w8gwjnQ==}
     dependencies:
       postcss: 8.4.31
     dev: false
