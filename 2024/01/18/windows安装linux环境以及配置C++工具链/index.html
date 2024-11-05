@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Ivan">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2024/01/18/windows安装linux环境以及配置c++工具链/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="Windows 安装 Linux 以及配置 C++工具链港大 ENGG1340 课程内里有包含 Linux 和 C++相关内容. 介于有很多同学都是小萌新和小白, 不知道如何在 windows 环境下配置 linux 以及 c++. 于此写一篇攻略 首先我们了解一个概念. windows 和 linux 分别是两套操作系统, 我们在 1340 上学习的应该是 linux 世界里的 Shell, 一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows安装linux环境以及配置C++工具链">
+<meta property="og:url" content="http://example.com/2024/01/18/windows%E5%AE%89%E8%A3%85linux%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8A%E9%85%8D%E7%BD%AEC++%E5%B7%A5%E5%85%B7%E9%93%BE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Windows 安装 Linux 以及配置 C++工具链港大 ENGG1340 课程内里有包含 Linux 和 C++相关内容. 介于有很多同学都是小萌新和小白, 不知道如何在 windows 环境下配置 linux 以及 c++. 于此写一篇攻略 首先我们了解一个概念. windows 和 linux 分别是两套操作系统, 我们在 1340 上学习的应该是 linux 世界里的 Shell, 一">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image-20240118205313275.png">
+<meta property="og:image" content="http://example.com/image-20240118210013387.png">
+<meta property="og:image" content="http://example.com/image-20240118210209741.png">
+<meta property="og:image" content="http://example.com/image-20240118210345961.png">
+<meta property="og:image" content="http://example.com/image-20240118205744486.png">
+<meta property="article:published_time" content="2024-01-18T13:12:53.000Z">
+<meta property="article:modified_time" content="2024-01-22T12:47:56.470Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="HKU">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image-20240118205313275.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            windows安装linux环境以及配置C++工具链 | Ivan&#39;s Scribbles
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Welcome to Ivan's Scribbles","subtitle":{"text":["Computer Science is a science of abstraction","The best way to predict the future is to invent it","Imagination is more important than knowledge","Computer science is no more about computers than astronomy is about telescopes"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.3","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container flex flex-col justify-between min-h-dvh">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/logo.png" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Ivan&#39;s Scribbles
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">windows安装linux环境以及配置C++工具链</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Ivan</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-01-18 21:12:53</span>
+        <span class="mobile">2024-01-18 21:12:53</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-01-22 20:47:56</span>
+            <span class="mobile">2024-01-22 20:47:56</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/HKU/">HKU</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Linux/">Linux</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/C-C/">C/C++</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="Windows-安装-Linux-以及配置-C-工具链"><a href="#Windows-安装-Linux-以及配置-C-工具链" class="headerlink" title="Windows 安装 Linux 以及配置 C++工具链"></a>Windows 安装 Linux 以及配置 C++工具链</h1><p>港大 ENGG1340 课程内里有包含 Linux 和 C++相关内容. 介于有很多同学都是小萌新和小白, 不知道如何在 windows 环境下配置 linux 以及 c++. 于此写一篇攻略</p>
+<p>首先我们了解一个概念. windows 和 linux 分别是两套操作系统, 我们在 1340 上学习的应该是 linux 世界里的 Shell, 一门编程语言. 这和 window 上的 powershell 以及 cmd (Command Line) 是不一样的. 就比如命令上的差异:</p>
+<table>
+<thead>
+<tr>
+<th>powershell</th>
+<th>shell</th>
+<th>cmd</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Get-ChildItem</td>
+<td>ls</td>
+<td>dir</td>
+<td><strong>列出当前目录</strong></td>
+</tr>
+<tr>
+<td>New-Item -ItemType Directory -Path C:\NewDirectory</td>
+<td>mkdir NewDirectory</td>
+<td>mkdir NewDirectory</td>
+<td><strong>创建新目录</strong></td>
+</tr>
+<tr>
+<td>Copy-Item -Path C:\Source\File.txt -Destination C:\Destination\</td>
+<td>cp Source&#x2F;File.txt Destination&#x2F;</td>
+<td>copy C:\Source\File.txt C:\Destination\</td>
+<td><strong>复制文件</strong></td>
+</tr>
+<tr>
+<td>Remove-Item -Path C:\Path\To\File.txt</td>
+<td>rm Path&#x2F;To&#x2F;File.txt</td>
+<td>del C:\Path\To\File.txt</td>
+<td><strong>删除文件</strong></td>
+</tr>
+<tr>
+<td>Move-Item -Path C:\Source\File.txt -Destination C:\Destination\</td>
+<td>mv Source&#x2F;File.txt Destination&#x2F;</td>
+<td>move C:\Source\File.txt C:\Destination\</td>
+<td><strong>移动文件或目录</strong></td>
+</tr>
+</tbody></table>
+<p>所以你没法在 windows 上的 <code>powershell</code> 或是 <code>cmd</code> 中运行 <code>shell</code> 的命令. 这也是为什么你需要一个 linux 系统.</p>
+<p>以下是两篇我觉得比较好的链接, 帮助你了解各种关于<strong>命令行</strong>, <strong>终端</strong>, <strong>内核</strong> 等概念.</p>
+<h5 id="reference"><a href="#reference" class="headerlink" title="reference:"></a>reference:</h5><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/what-is-terminal-console-shell-and-kernel/" >What is Terminal, Console, Shell and Kernel? - GeeksforGeeks <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://hackernoon.com/the-shell-and-the-terminal-whats-the-difference#" >The Shell and the Terminal: What’s the Difference? | HackerNoon <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h2 id="Windows-安装-Linux"><a href="#Windows-安装-Linux" class="headerlink" title="Windows 安装 Linux"></a>Windows 安装 Linux</h2><h3 id="1-使用虚拟机安装-Linux"><a href="#1-使用虚拟机安装-Linux" class="headerlink" title="1. 使用虚拟机安装 Linux"></a>1. 使用虚拟机安装 Linux</h3><h4 id="1-1-使用-Oracle-VM-VirtualBox-安装"><a href="#1-1-使用-Oracle-VM-VirtualBox-安装" class="headerlink" title="1.1 使用 Oracle VM VirtualBox 安装"></a>1.1 使用 Oracle VM VirtualBox 安装</h4><p>Oracle VM VirtualBox 是一款<strong>免费</strong>开源的<strong>轻量级</strong>的虚拟机, 非常适合小白上手. 这里推荐几篇文章和视频教你如何安装</p>
+<h5 id="安装文档"><a href="#安装文档" class="headerlink" title="安装文档:"></a>安装文档:</h5><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.virtualbox.org/wiki/Downloads" >Oracle VM VirtualBox 官方文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/syy2668/article/details/122208127" >Oracle VM VirtualBox 安装 Ubuntu 虚拟机_oracle 使用已有 ubuntu vdi 安装虚拟机-CSDN 博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h5 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程:"></a>视频教程:</h5><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV12S4y1P7CU?p=6&vd_source=ed766dd5e64b589f3515149823363dbd" >0006 3 Setup a Linux Virtual Machine_哔哩哔哩_bilibili <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h5 id="虚拟机和虚拟机之间的区别"><a href="#虚拟机和虚拟机之间的区别" class="headerlink" title="虚拟机和虚拟机之间的区别?"></a>虚拟机和虚拟机之间的区别?</h5><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV12S4y1P7CU?p=5&vd_source=ed766dd5e64b589f3515149823363dbd" >0005 2 Introduction to Virtualization Virtual Machines_哔哩哔哩_bilibili <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h4 id="1-2-使用-VMWare-安装"><a href="#1-2-使用-VMWare-安装" class="headerlink" title="1.2 使用 VMWare 安装"></a>1.2 使用 VMWare 安装</h4><p>VMWare 是一款<strong>商业化</strong>的<strong>高性能</strong>, <strong>高度配置</strong>的虚拟机. 一般企业用的比较多. 付费嘛~, 算什么大问题, 咱百度上啥资源没有你说是吧(doge). 破解版随便搜一下就可以了.</p>
+<p>介于 VMware 与 HyperV 会有冲突问题, 我把解决方案的文章链接也贴下面了</p>
+<h5 id="安装文档-1"><a href="#安装文档-1" class="headerlink" title="安装文档:"></a>安装文档:</h5><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/141033713" >2020 最新版 VMware 安装 Ubuntu20.04 教程(巨细)！ - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1701473" >5 秒解决：VMware Workstation 与 Hyper-V 不兼容-腾讯云开发者社区-腾讯云 (tencent.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<p>注: 本人使用的是 VMWare 17 Pro, 好像 VM 在 15.5 后就把冲突兼容问题给解决了…</p>
+<p>在安装好虚拟机后你就可以拥有半台自己的 linux 操作系统的电脑了, 为什么算半台? 因为这玩意占你本机资源, 撑死算个双胞胎兄弟.</p>
+<p>在你安装好 ubuntu, 配置到系统后. 在系统里面按 <code>Ctrl + Alt + t</code> 就可以打开一个终端, 在里面你就可以尽情的尝试 shell 脚本啦</p>
+<h3 id="2-安装-WSL-Windows-Subsystem-Linux"><a href="#2-安装-WSL-Windows-Subsystem-Linux" class="headerlink" title="2. 安装 WSL (Windows Subsystem Linux)"></a>2. 安装 WSL (Windows Subsystem Linux)</h3><p>wsl 就是一个阉割版的 linux 子系统, 在性能上会有所欠缺, 但好处就是<strong>轻量</strong>, <strong>快速</strong>. 对于仅仅想学习 linux 命令的同学, 这个会是个非常不错的选择. 但是对于以后想搞运维, 需要深入理解 linux, 亦或者学习跨平台开发, 远程服务器之类的, 搞个虚拟机, 不亏. (注: 不嫌麻烦的话可以学习本人, 两个都有, 既有虚拟机也有 wsl)</p>
+<h5 id="安装文档-2"><a href="#安装文档-2" class="headerlink" title="安装文档:"></a>安装文档:</h5><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2287063" >最详尽教程完整介绍-Windows 的 Linux 子系统-WSL1&amp;WSL2-腾讯云开发者社区-腾讯云 (tencent.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<p>安装成功后在终端里敲 <code>bash</code> 就可以进入 linux 子系统的终端啦 (记得要运行该系统, 不然系统死的你怎么搞都进不去)</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image-20240118205313275.png"
+                      alt="image-20240118205313275"
+                ></p>
+<p>注: 由于 wsl2 默认安装在 C 盘, 很多人不希望杂七杂八的玩意儿都塞 C 盘, 这里就附上一则教你怎么迁移 wsl 的教程</p>
+<h5 id="迁移-wsl"><a href="#迁移-wsl" class="headerlink" title="迁移 wsl:"></a>迁移 wsl:</h5><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29931565/article/details/121070602" >【WSL】WSL 迁移教程-CSDN 博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h2 id="2-Windows-配置-C"><a href="#2-Windows-配置-C" class="headerlink" title="2. Windows 配置 C++"></a>2. Windows 配置 C++</h2><p>windows 上配置 c++ 相关的工具链其实也挺简单的, 虽然我当时糊弄了好久… 想要编写 C++和 C 语言, 你必须在你的电脑上安装这俩程序的编译器, 也就是 <code>gcc</code> , (<code>g++</code> 也可以奥, <code>g++</code>其实就是 <code>gcc</code> 的升级版, 专门为 C++ 做了适配的), 以及 <code>gdb</code> 用来 debug 修代码的.</p>
+<p>由于 windows 上没有原生的包管理工具, 所以你的自己手动下载一下, 可能还得自己配一下环境变量. 这时候有人问, 为啥不直接在虚拟机上耍啊, linux 自带 gcc 编译器. 没问题啊, 你完全可以在虚拟机上写代码. 但对本人来说, 电脑配置比较吃紧(虚拟机分配的不多), 而且虚拟机上没有你辛辛苦苦用了好久的 IDE, 比如我的 VS Code. 里面好多好用的插件呢. 在虚拟机上搞得话得重新下载. 而且虚拟机还吃资源, 卡. 所以本人倾向于在 windows 整个 gcc, 然后在本地敲代码. 美滋滋~</p>
+<p>那接下来话不多说, 扒拉扒拉如何安装 C&#x2F;C++ 工具链</p>
+<h3 id="1-配置-C-编译器"><a href="#1-配置-C-编译器" class="headerlink" title="1. 配置 C++编译器"></a>1. 配置 C++编译器</h3><h4 id="1-1-使用-MinGW-w64"><a href="#1-1-使用-MinGW-w64" class="headerlink" title="1.1 使用 MinGW-w64"></a>1.1 使用 MinGW-w64</h4><p>MinGW 说人话就是一个能在 Windows 下运行的二进制文件, 不依赖任何非 windows 的东西. 但是 mingw 本身不带有 linux shell 环境, 一些常用的编译前处理命令工具没法使用. 而 MSYS2 就是提供了一个 shell 环境, 然后支持安装 mingw. (注: 本人用的就是 MYSY2). 相较于 MinGW 要大一点, 多了个 shell 脚本环境.</p>
+<h5 id="安装文档-3"><a href="#安装文档-3" class="headerlink" title="安装文档:"></a>安装文档:</h5><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/B11050729/article/details/132176767" >MinGW-W64 下载、安装与配置（支持最新版的 GCC，目前 GCC 13.2.0）-CSDN 博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h4 id="1-2-使用-MSYS2"><a href="#1-2-使用-MSYS2" class="headerlink" title="1.2 使用 MSYS2"></a>1.2 使用 MSYS2</h4><h5 id="安装文档-4"><a href="#安装文档-4" class="headerlink" title="安装文档:"></a>安装文档:</h5><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/401188789" >给萌新的 C&#x2F;C++环境搭建攻略（VSCode 和 MSYS2） - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h5 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量:"></a>配置环境变量:</h5><p>右击此电脑打开属性</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image-20240118210013387.png"
+                      alt="image-20240118210013387"
+                ></p>
+<p>单击高级系统设置 -&gt; 选择环境变量 -&gt; 找到系统变量里的 PATH 内并进入</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image-20240118210209741.png"
+                      alt="image-20240118210209741"
+                ></p>
+<p>单击新建, 将你们下载的 wingw64 的安装路径填进去, <strong>记得是你们自己的安装路径!!!</strong> , 安装路径记得带有 bin 目录 (bin 表示 binary, 存放的是所有二进制文件, 实际的 g++, gcc, gdb 程序都在那里)</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image-20240118210345961.png"
+                      alt="image-20240118210345961"
+                ></p>
+<p>然后疯狂点确定就好了</p>
+<p>安装好后配置环境变量后就可以在 windows 终端内使用 c++编译器啦</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image-20240118205744486.png"
+                      alt="image-20240118205744486"
+                ></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> windows安装linux环境以及配置C++工具链</li>
+        <li><strong>Author:</strong> Ivan</li>
+        <li><strong>Created at
+                :</strong> 2024-01-18 21:12:53</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-01-22 20:47:56
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://ivanfan-van/github.io/2024/01/18/windows安装linux环境以及配置C++工具链/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/HKU/">#HKU</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Linux/">#Linux</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/C-C/">#C/C++</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/01/18/hexo%E5%90%88%E9%9B%86/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">hexo合集</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/01/18/%E6%90%AD%E5%BB%BA%E4%B8%90%E7%89%88%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">搭建丐版代理服务器遇到的坑</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">windows安装linux环境以及配置C++工具链</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows-%E5%AE%89%E8%A3%85-Linux-%E4%BB%A5%E5%8F%8A%E9%85%8D%E7%BD%AE-C-%E5%B7%A5%E5%85%B7%E9%93%BE"><span class="nav-text">Windows 安装 Linux 以及配置 C++工具链</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-%E5%AE%89%E8%A3%85-Linux"><span class="nav-text">Windows 安装 Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85-Linux"><span class="nav-text">1. 使用虚拟机安装 Linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85-WSL-Windows-Subsystem-Linux"><span class="nav-text">2. 安装 WSL (Windows Subsystem Linux)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Windows-%E9%85%8D%E7%BD%AE-C"><span class="nav-text">2. Windows 配置 C++</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%85%8D%E7%BD%AE-C-%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-text">1. 配置 C++编译器</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Ivan</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        10 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.3</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+</body>
+</html>

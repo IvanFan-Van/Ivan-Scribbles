@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Ivan">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2024/01/20/如何免密登录学校服务器/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="快速登录学校服务器第二版: 一步到”胃”俗话说的好, 懒惰是进步的第一生产力. 咱们上一讲聊到如何自定义服务器地址从而避免记忆冗长的地址, 如何做到只输入一次密码就可以直接登录. 但是! 密码太长太恶心了啊QAQ. 于是就有了这篇, 偷懒大法. 咱直接一步到位, 配置一次, 以后无需再填写任何密码. 一条命令直接登录!  具体效果如下:  那咱废话不多说, 直接开搞! (PS: 如果你足够懒, 可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何跨跳板机免密ssh内网服务器">
+<meta property="og:url" content="http://example.com/2024/01/20/%E5%A6%82%E4%BD%95%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E5%AD%A6%E6%A0%A1%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="快速登录学校服务器第二版: 一步到”胃”俗话说的好, 懒惰是进步的第一生产力. 咱们上一讲聊到如何自定义服务器地址从而避免记忆冗长的地址, 如何做到只输入一次密码就可以直接登录. 但是! 密码太长太恶心了啊QAQ. 于是就有了这篇, 偷懒大法. 咱直接一步到位, 配置一次, 以后无需再填写任何密码. 一条命令直接登录!  具体效果如下:  那咱废话不多说, 直接开搞! (PS: 如果你足够懒, 可">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/demo.gif">
+<meta property="og:image" content="http://example.com/image-20240120152914215.png">
+<meta property="og:image" content="http://example.com/image-20240120143557059.png">
+<meta property="og:image" content="http://example.com/image-20240120143733293.png">
+<meta property="og:image" content="http://example.com/image-20240120153439768.png">
+<meta property="og:image" content="http://example.com/image-20240120175515964.png">
+<meta property="article:published_time" content="2024-01-20T08:13:25.000Z">
+<meta property="article:modified_time" content="2024-01-22T12:46:58.176Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="HKU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/demo.gif">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            如何跨跳板机免密ssh内网服务器 | Ivan&#39;s Scribbles
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Welcome to Ivan's Scribbles","subtitle":{"text":["Computer Science is a science of abstraction","The best way to predict the future is to invent it","Imagination is more important than knowledge","Computer science is no more about computers than astronomy is about telescopes"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.3","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container flex flex-col justify-between min-h-dvh">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/logo.png" class="w-full h-full rounded-sm">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Ivan&#39;s Scribbles
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">如何跨跳板机免密ssh内网服务器</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Ivan</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-01-20 16:13:25</span>
+        <span class="mobile">2024-01-20 16:13:25</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-01-22 20:46:58</span>
+            <span class="mobile">2024-01-22 20:46:58</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/HKU/">HKU</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="快速登录学校服务器第二版-一步到”胃”"><a href="#快速登录学校服务器第二版-一步到”胃”" class="headerlink" title="快速登录学校服务器第二版: 一步到”胃”"></a>快速登录学校服务器第二版: 一步到”胃”</h1><p>俗话说的好, 懒惰是进步的第一生产力. 咱们上一讲聊到如何自定义服务器地址从而避免记忆冗长的地址, 如何做到只输入一次密码就可以直接登录. 但是! <strong>密码太长太恶心了啊</strong>QAQ. 于是就有了这篇, 偷懒大法. 咱直接一步到位, <strong>配置一次, 以后无需再填写任何密码. 一条命令直接登录!</strong>  具体效果如下:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/demo.gif"
+                      alt="demo.gif"
+                ></p>
+<p>那咱废话不多说, 直接开搞!</p>
+<p>(PS: 如果你足够懒, 可以直接翻到最后面, 我写了一个脚本可以帮你一键配置ssh配置文件. 但前提条件是要在电脑上安装PuTTY)</p>
+<h2 id="1-第一步安装PuTTY"><a href="#1-第一步安装PuTTY" class="headerlink" title="1. 第一步安装PuTTY"></a>1. 第一步安装PuTTY</h2><p>首先我们需要在windows上面下载 PuTTY. 苹果用户可以使用 sshpass. 下载地址在这 <a class="link"   target="_blank" rel="noopener" href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html" >Download PuTTY: latest release (0.80) (greenend.org.uk) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>然后找到属于自己的安装包, 比如我的电脑是 64位系统, 所以选择<code> 64-bit x86</code> 的安装包. 双击下载后的安装包, 跟着步骤开始安装. </p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image-20240120152914215.png"
+                      alt="image-20240120152914215"
+                ></p>
+<p>找到下载后的安装包, 双击打开. 记得选择下载位置. 我一般不放在C盘. 毕竟C盘且用且珍惜.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image-20240120143557059.png"
+                      alt="image-20240120143557059"
+                ></p>
+<p>然后一直按next, 等待安装结束就好啦…</p>
+<p>如何检测安装是否成功, 可以打开cmd然后敲<strong>plink</strong>命令, 看看是否能正确显示</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image-20240120143733293.png"
+                      alt="image-20240120143733293"
+                ></p>
+<p>如果报错的话可以看这篇文章, 如何配置windows环境变量. 把plink.exe所处的文件夹路径添加到PATH里就可以啦</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/671349063" >windows11如何配置环境变量？ - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h2 id="2-第二步修改ssh配置文件"><a href="#2-第二步修改ssh配置文件" class="headerlink" title="2. 第二步修改ssh配置文件"></a>2. 第二步修改ssh配置文件</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Host hku</span><br><span class="line">  HostName academy11.cs.hku.hk</span><br><span class="line">  User h3626454</span><br><span class="line">  ProxyCommand plink -ssh -l h3626454 -pw &lt;password&gt; gatekeeper.cs.hku.hk -nc %h:%p</span><br></pre></td></tr></table></figure></div>
+
+<p>老规矩, 把 <code>&lt;password&gt;</code> 所处位置替换成你自己的密码. 毕竟是隐私, 我就不暴露了.</p>
+<p><strong>remark:</strong> 现在这个是 <code>ProxyCommand</code> 而不是 <code>ProxyJump</code>, 记得修改. 不要只改了后面的内容</p>
+<p>配置完就大功告成啦…</p>
+<p><strong>最终效果如下</strong>:</p>
+<p>只需要输入 <code>ssh hku</code> 就可以直接登录学校服务器啦. 到现在为止, 我们已经能够<strong>偷懒</strong>到极致, 无需密码, 无需输入服务器地址. 一条命令, 直接包办.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image-20240120153439768.png"
+                      alt="image-20240120153439768"
+                ></p>
+<p>好了, 接下来是解释时间. </p>
+<h2 id="原理解释"><a href="#原理解释" class="headerlink" title="原理解释:"></a>原理解释:</h2><p>书接上回, 我们使用<strong>用户名+密码</strong> 的方式登录门户服务器, 然后使用 <strong>密匙</strong> 来免密登录学校服务器, 实现一次密码直接登陆的”壮举”. 但是, 我们有没有能力直接将密码携带在命令里登陆呢, 那样是不是就不用输入密码了? 有搞头, 冲!. </p>
+<p>在网上搜了好一番. 才发现ssh并没有内置的, 携带密码的选择. 所以我们得使用一些<strong>外挂</strong>, 也就是PuTTY. 一个小巧简洁的ssh登录客户端. 它里面提供了一个工具 <strong>plink</strong> 可以在命令行里携带密码发送 <strong>ssh请求</strong>. 这不就是我们需要的东西嘛</p>
+<p>现在携带密码的工具已经搞定了, 那我们应该如何在使用ssh命令时, 让其自动执行呢? 记不记得上回在配置文件里设置的 <strong>ProxyJump</strong> 参数, 它接收一个 <code>username@address</code> 字符串, 然后在连接到目的服务器前, 先使用ssh连接到 <strong>ProxyJump</strong> 参数里指定的服务器, 然后再通过那个服务器作为代理发送ssh请求到目标服务器. 但是问题来了: <strong>ProxyJump只能发送ssh请求, 没法使用plink来携带密码怎么办?</strong> . 于是一个新的参数出现了, <strong>ProxyCommand</strong> 它允许指定用于连接到服务器的命令. 也就是说, 我们可以使用 <strong>plink</strong> 来连接我们的门户服务器了. </p>
+<p>下面是对配置完整的解释:</p>
+<ul>
+<li>使用 <code>plink -ssh -l h3626454 -pw &lt;password&gt; gatekeeper.cs.hku.hk</code> 来连接代理服务器,</li>
+<li><code>-ssh</code>: 指定使用ssh登录</li>
+<li><code>-l</code> : 指定登录用户</li>
+<li><code>-pw</code>: 指定携带的密码</li>
+<li><code>-nc %h:%p</code> 命令使用 nc (netcat) 工具设置转发请求的目的服务器地址以及端口</li>
+<li><code>%h</code> 和 <code>%p</code> 分别是 <strong>host</strong> 和 <strong>port</strong> 的占位符, 在命令执行时会自动替换成配置前面设置的 <strong>HostName</strong> 和 <strong>Port</strong> 的值</li>
+</ul>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ProxyCommand plink -ssh -l h3626454 -pw &lt;password&gt; gatekeeper.cs.hku.hk -nc %h:%p</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><strong>Remark:</strong> ProxyCommand 只能用于连接代理服务器, 不能直接连接目标服务器. 所以我们一般搭配 <code>-nc</code> 参数来配置最终的目标服务器. </p>
+<p><strong>reference:</strong></p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://man.openbsd.org/ssh_config" >ssh_config(5) - OpenBSD manual pages <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://man.openbsd.org/nc.1" >nc(1) - OpenBSD 手册页 — nc(1) - OpenBSD manual pages <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://documentation.help/PuTTY/plink-usage.html" >Using Plink - PuTTY Documentation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://the.earth.li/~sgtatham/putty/0.62/htmldoc/Chapter7.html#plink-usage" >Using the command-line connection tool Plink (earth.li) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/12118308/execute-ssh-with-password-authentication-via-windows-command-prompt" >Execute ssh with password authentication via windows command prompt - Stack Overflow <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<hr>
+
+
+
+
+<h2 id="一键配置"><a href="#一键配置" class="headerlink" title="一键配置"></a>一键配置</h2><p>介于有些人不太理解怎么配置, 我写了一个 <code>.bat</code> 脚本, 有需要可以找我要. 或者新建一个 <code>.txt</code> 文件, 然后将下面代码复制进去. 最后修改文件名后缀为 <code>.bat</code> . 双击运行就可以啦.</p>
+<p><strong>非常重要!!!</strong></p>
+<p><strong>remark:</strong></p>
+<ul>
+<li>在电脑上必须安装 <code>PuTTY</code>, 要求在终端内输入 <code>plink</code> 不报错, 即命令存在. 如命令不存在, 先检查有无下载 PuTTY, 再检查环境变量是否配置. 如果都没出错, 可以考虑删了重下</li>
+<li>如果原先已经在 <code>~/.ssh/config</code> 下配置过类似配置, 或是运行过一次脚本, 需要自己手动清除之前的配置. 因为新配置默认添加在文件末尾. 如果前面有匹配的配置, 就会覆盖新的配置!</li>
+<li>由于第二次登录学校服务器是使用ssh密匙实现的! 所以仍旧需要跟着 <strong>“如何快速登录学校服务器”</strong> 里的第二步在学校服务器的用户目录下创建 <code>.ssh/authorized_keys</code> 并配置公匙</li>
+<li>如果以上三点都没问题, 但是还是没法一键登录学校服务器, 可以检查用户密码是否填写错误. 最后实在搞不定可以私聊我.</li>
+</ul>
+<div class="highlight-container" data-rel="Bat"><figure class="iseeu highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">rem @echo off: hides the text that is normally output</span></span><br><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"></span><br><span class="line"><span class="built_in">setlocal</span> enabledelayedexpansion</span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">rem Prompt user for input</span></span><br><span class="line"><span class="built_in">set</span> /p username=Enter username:</span><br><span class="line"><span class="built_in">set</span> /p host=Enter host:</span><br><span class="line"><span class="built_in">set</span> /p password=Enter password:</span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">@REM echo %username%</span></span><br><span class="line"><span class="comment">@REM echo %host%</span></span><br><span class="line"><span class="comment">@REM echo %password%</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">@REM Host %custom_host%</span></span><br><span class="line"><span class="comment">@REM   HostName academy11.cs.hku.hk</span></span><br><span class="line"><span class="comment">@REM   User %username%</span></span><br><span class="line"><span class="comment">@REM   ProxyCommand plink -ssh -l %username% -pw %password% gatekeeper.cs.hku.hk -nc %%h:%%p</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">@REM Check if .ssh directory exists, create if not</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exist</span> <span class="variable">%userprofile%</span>\.ssh <span class="built_in">mkdir</span> <span class="variable">%userprofile%</span>\.ssh</span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">@REM Write custom config into ssh config file</span></span><br><span class="line">(</span><br><span class="line">    <span class="built_in">echo</span>.</span><br><span class="line">    <span class="built_in">echo</span> Host <span class="variable">%host%</span></span><br><span class="line">    <span class="built_in">echo</span>   HostName academy11.cs.hku.hk</span><br><span class="line">    <span class="built_in">echo</span>   User <span class="variable">%username%</span></span><br><span class="line">    <span class="built_in">echo</span>   ProxyCommand plink -ssh -l <span class="variable">%username%</span> -pw <span class="variable">%password%</span> gatekeeper.cs.hku.hk -nc <span class="variable">%%h</span>:<span class="variable">%%p</span></span><br><span class="line">) &gt;&gt; &quot;<span class="variable">%userprofile%</span>\.ssh\config&quot;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">1</span> (</span><br><span class="line">    <span class="built_in">echo</span> Error writing to SSH config. Exiting.</span><br><span class="line">    <span class="keyword">exit</span> /b <span class="number">1</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> SSH config written successfully.</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>使用教程如图:<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image-20240120175515964.png"
+                      alt="image-20240120175515964"
+                ></p>
+<ol>
+<li>双击 .bat 文件开始运行脚本</li>
+<li>输入用户名, 密码, 以及自定义的主机名</li>
+<li>脚本会自动在 <code>~/.ssh/config</code> 中生成配置</li>
+</ol>
+<p>有些人觉得这么大费周章其实很没必要. 但其实这个具有很广泛的用途. 在这几天专研的过程中, 我发现这种 <strong>跳板机-内网服务器</strong> 的形式在很多公司里都有应用.  公司不会轻易的将自己的服务器暴露在外网, 而是使用一个 <strong>跳板机</strong> 来充当内网访问的门户, 这样做的好处有以下几点:</p>
+<ul>
+<li><strong>安全性增强：</strong> 跳板机作为中介可以减少直接暴露内部服务器给外部的风险，提高网络安全性。比如防御黑客入侵, DDos等</li>
+<li><strong>审计和监控：</strong> 通过跳板机，管理员可以更容易地监控用户的活动和进行审计，因为所有的连接都经过这个服务器。</li>
+<li><strong>访问控制：</strong> 跳板机可以实施更严格的访问控制，只允许授权用户连接到内部服务器。</li>
+<li><strong>集中管理：</strong> 管理员可以集中管理跳板机上的安全策略，而无需在每个服务器上进行配置。</li>
+</ul>
+<p>所以通过这种可以越过跳板机直接访问内网服务器的方式, 一定程度上的减少了浪费的时间. </p>
+<p><strong>注意:</strong> </p>
+<p>由于学校的跳板机没有给我们权限更改文件, 所以只能使用 <strong>密码 + ssh密匙</strong> 混合的形式来登录. 但是以后如果在公司, 更推荐的做法是找你们的管理员把你的密匙也添加到 <strong>跳板机</strong> 上, 这样就可以直接使用 <strong>密匙登录</strong> , 相比起将密码写死在文件内的方式更加的安全.</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 如何跨跳板机免密ssh内网服务器</li>
+        <li><strong>Author:</strong> Ivan</li>
+        <li><strong>Created at
+                :</strong> 2024-01-20 16:13:25</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-01-22 20:46:58
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://ivanfan-van/github.io/2024/01/20/如何免密登录学校服务器/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/HKU/">#HKU</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/02/01/What-s-the-difference-between-Linux-variable-expansion-with-double-quotes-and-without/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">What&#39;s the difference between Linux variable expansion with double quotes and without</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/01/19/%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E7%99%BB%E5%BD%95%E5%AD%A6%E6%A0%A1%E6%9C%8D%E5%8A%A1%E5%99%A8/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">如何快速登录学校服务器</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">如何跨跳板机免密ssh内网服务器</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E7%99%BB%E5%BD%95%E5%AD%A6%E6%A0%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AC%AC%E4%BA%8C%E7%89%88-%E4%B8%80%E6%AD%A5%E5%88%B0%E2%80%9D%E8%83%83%E2%80%9D"><span class="nav-text">快速登录学校服务器第二版: 一步到”胃”</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%AC%AC%E4%B8%80%E6%AD%A5%E5%AE%89%E8%A3%85PuTTY"><span class="nav-text">1. 第一步安装PuTTY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%AC%AC%E4%BA%8C%E6%AD%A5%E4%BF%AE%E6%94%B9ssh%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">2. 第二步修改ssh配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E8%A7%A3%E9%87%8A"><span class="nav-text">原理解释:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E9%94%AE%E9%85%8D%E7%BD%AE"><span class="nav-text">一键配置</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Ivan</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        10 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.3</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+</body>
+</html>
